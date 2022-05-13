@@ -1,12 +1,9 @@
 import NextAuth from "next-auth";
+import { JWT } from 'next-auth/jwt'
 
 declare module "next-auth" {
   interface Session {
     user: {
-      /**
-       * The user's email address
-       */
-      email?: string | null;
 
       /**
        * The user's unique id number
@@ -20,23 +17,13 @@ declare module "next-auth" {
       image?: string | null;
 
       /**
-       * The user's full name
-       */
-      name?: string | null;
-
-      /**
        * The user's custom & public username viewable to others
        */
-      username?: string | null;
+      ensAddress?: string | null;
     };
   }
 
   interface User {
-    /**
-     * The user's email address
-     */
-    email?: string | null;
-
     /**
      * The user's unique id number
      */
@@ -48,14 +35,27 @@ declare module "next-auth" {
      */
     image?: string | null;
 
+    ensAddress?: string | null;
+  }
+}
+
+declare module "next-auth/jwt" {
+
+  interface JWT {
     /**
-     * The user's full name
+     * The user's unique id number
      */
-    name?: string | null;
+    id?: string | null;
 
     /**
-     * The user's custom & public username viewable to others
-     */
-    username?: string | null;
+    * The users preferred avatar.
+    * Usually provided by the user's OAuth provider of choice
+    */
+    image?: string | null;
+
+    /**
+    * The user's custom & public username viewable to others
+    */
+    ensAddress?: string | null;
   }
 }

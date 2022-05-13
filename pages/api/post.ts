@@ -1,13 +1,12 @@
 import { createPost, deletePost, getPost, updatePost } from "@/lib/api";
-import { getServerSession } from "next-auth/next";
+import { getSession } from "next-auth/react";
 
-import { authOptions } from "./auth/[...nextauth]";
 import { HttpMethod } from "@/types";
 
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function post(req: NextApiRequest, res: NextApiResponse) {
-  const session = await getServerSession({ req, res }, authOptions);
+  const session = await getSession({ req });
   if (!session) return res.status(401).end();
 
   switch (req.method) {

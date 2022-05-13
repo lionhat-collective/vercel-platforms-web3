@@ -65,16 +65,22 @@ export default function Layout({ siteId, children }: LayoutProps) {
                 <a className="flex justify-center items-center">
                   {session.user && session.user.image && (
                     <div className="h-8 w-8 inline-block rounded-full overflow-hidden align-middle">
-                      <Image
+                      {/* <Image
                         src={session.user.image}
                         width={40}
                         height={40}
-                        alt={session.user.name ?? "User avatar"}
+                        alt={session.user.id ?? "User avatar"}
+                      /> */}
+                      <img
+                        src={session.user.image}
+                        width={40}
+                        height={40}
+                        alt={session.user.ensAddress ?? session.user.id ?? 'User avatar'}
                       />
                     </div>
                   )}
                   <span className="sm:block inline-block ml-3 font-medium truncate">
-                    {session.user?.name}
+                    {session.user.ensAddress ?? session.user.id}
                   </span>
                 </a>
               </Link>

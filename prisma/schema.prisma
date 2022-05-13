@@ -2,25 +2,18 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider             = "mysql"
+  provider             = "sqlite"
   url                  = env("DATABASE_URL")
-  referentialIntegrity = "prisma"
 }
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["referentialIntegrity"]
 }
 
 
 model User {
-  id            String        @id @default(cuid())
-  name          String?
-  // if you are using Github OAuth, you can get rid of the username attribute (that is for Twitter OAuth)
-  username      String?
-  gh_username   String?
-  email         String?       @unique
-  emailVerified DateTime?
+  id            String        @id
+  ensAddress      String?
   image         String?
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
@@ -43,8 +36,6 @@ model Account {
   scope              String?
   id_token           String?
   session_state      String?
-  oauth_token_secret String?
-  oauth_token        String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -72,12 +63,12 @@ model VerificationToken {
 
 model Post {
   id            String       @id @default(cuid())
-  title         String?      @db.Text
-  description   String?     @db.Text
-  content       String?     @db.LongText
+  title         String?      
+  description   String?     
+  content       String?     
   slug          String      @default(cuid())
-  image      String?   @db.Text
-  imageBlurhash String?   @db.LongText
+  image      String?   
+  imageBlurhash String?   
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   published     Boolean      @default(false)
@@ -89,10 +80,10 @@ model Post {
 model Site {
   id            String  @id @default(cuid())
   name          String?
-  description   String? @db.Text
+  description   String? 
   logo          String?
-  image         String? @db.Text
-  imageBlurhash String? @db.LongText
+  image         String? 
+  imageBlurhash String? 
   subdomain     String? @unique
   customDomain  String? @unique
   createdAt     DateTime     @default(now())
@@ -105,9 +96,9 @@ model Site {
 model Example {
   id            Int     @id @default(autoincrement())
   name          String?
-  description   String? @db.Text
+  description   String? 
   domainCount   Int?
   url           String?
-  image         String? @db.Text
-  imageBlurhash String? @db.LongText
+  image         String? 
+  imageBlurhash String? 
 }
